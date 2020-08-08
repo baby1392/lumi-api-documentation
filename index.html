@@ -279,7 +279,7 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-c9d8fa83.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-51b63acd.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-953e3353.css" rel="stylesheet" media="print" />
       <script src="javascripts/all-e9bde216.js"></script>
 
@@ -288,7 +288,7 @@
     </script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;JSON&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -296,12 +296,9 @@
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo-1e815a84.png" class="logo" alt="" />
+      <img src="images/logo-dccf3a3a.png" class="logo" alt="" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="JSON">JSON</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -312,7 +309,12 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
           <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+            <a href="#cost-calculator" class="toc-h1 toc-link" data-title="Cost Calculator">Cost Calculator</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#nlp-api-output-changes" class="toc-h2 toc-link" data-title="NLP API Output changes">NLP API Output changes</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
@@ -341,41 +343,363 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>This documentation is the reference for JNJRnD Phase 1B <strong>APIs and IO Structures</strong></p>
 
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>The following are the modules</p>
 
-<p>This example API documentation page was created with <a href="https://github.com/slatedocs/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
+<ol>
+<li>Cost Calculator</li>
+<li>Save Simulation</li>
+<li>Edit Monte-Carlo</li>
+</ol>
+<h1 id='cost-calculator'>Cost Calculator</h1><h2 id='nlp-api-output-changes'>NLP API Output changes</h2>
+<p>The following is the sample question for <em>cost calculator</em></p>
+
+<p><code>How much would phase 2 diabetes cost?</code></p>
+
+<ul>
+<li>The &quot;type&quot; will be &quot;cost_calculator&quot;</li>
+</ul>
+
+<p><code>&quot;action&quot;: {</code><br/>
+<code>&quot;type&quot;: &quot;cost_calculator&quot;</code><br/>
+<code>}</code><br/></p>
+
+<ul>
+<li>New field &quot;OUTSOURCING&quot; added into &quot;Chart Filter&quot;. And it is only for JRD dataset</li>
+</ul>
+
+<p><code>&quot;OUTSOURCING&quot;: {</code><br/>
+<code>&quot;label&quot;: &quot;OUTSOURCING&quot;,</code><br/>
+<code>&quot;selection&quot;: &quot;dropdown-multi&quot;,</code><br/>
+<code>&quot;dataset&quot;: [</code><br/>
+<code>&quot;JRD&quot;</code><br/>
+<code>],</code><br/>
+<code>&quot;visible&quot;: true</code><br/>
+<code>}</code><br/></p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET http://104.199.249.254:5064</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>query</td>
+<td>how much would phase 2 diabetes cost</td>
+<td>The question which has been asked by the user</td>
+</tr>
+<tr>
+<td>user</td>
+<td>jnjrd</td>
+<td>The NLP domain</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>varsha@lymbyc.com</td>
+<td>The user&#39;s email id of Lumi Application</td>
+</tr>
+</tbody></table>
+
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>API Request</p>
 </blockquote>
-<div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="p">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">kittn</span><span class="dl">'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="dl">'</span><span class="s1">meowmeowmeow</span><span class="dl">'</span><span class="p">);</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://104.199.249.254:5064/?</span><span class="se">\</span><span class="s2">
+query=how+long+would+a+phase+2+diabetes+study+take</span><span class="se">\</span><span class="s2">
+&amp;user=jnjrd&amp;user_id=varsha@lymbyc.com"</span>
 </code></pre></div>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+<p>API Response</p>
 </blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
-
-<aside class="notice">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"200"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status_txt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MQL Generation Success"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"subdomain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jnj_research"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"sub-domain description"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"rank"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"mql"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"dimension"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"diabetes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"DISEASE AREA (KMR)"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                                </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DISEASE AREA (KMR)"</span><span class="p">,</span><span class="w">
+                                </span><span class="nl">"order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"desc"</span><span class="p">,</span><span class="w">
+                                </span><span class="nl">"narrow_down_candidate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="p">,</span><span class="w">
+                                </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"single"</span><span class="p">,</span><span class="w">
+                                </span><span class="nl">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                    </span><span class="s2">"DIABETES MELLITUS"</span><span class="w">
+                                </span><span class="p">]</span><span class="w">
+                            </span><span class="p">}</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"phase 2"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"TRIAL PHASE"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                                </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TRIAL PHASE"</span><span class="p">,</span><span class="w">
+                                </span><span class="nl">"order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"desc"</span><span class="w">
+                            </span><span class="p">},</span><span class="w">
+                            </span><span class="nl">"TRIAL PHASE GROUP"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                                </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TRIAL PHASE GROUP"</span><span class="p">,</span><span class="w">
+                                </span><span class="nl">"order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"desc"</span><span class="w">
+                            </span><span class="p">}</span><span class="w">
+                        </span><span class="p">}</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="nl">"filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"and"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"eq"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                                </span><span class="nl">"phase 2"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                    </span><span class="s2">"II"</span><span class="w">
+                                </span><span class="p">],</span><span class="w">
+                                </span><span class="nl">"diabetes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                    </span><span class="s2">"DIABETES MELLITUS"</span><span class="w">
+                                </span><span class="p">]</span><span class="w">
+                            </span><span class="p">}</span><span class="w">
+                        </span><span class="p">}</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="nl">"action"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cost_calculator"</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="nl">"query_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aggregation"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"db_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"activity"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"transaction"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"db_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jrd_activity_p1b_v1"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"weight"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7583333333333333</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"leni_jnjrd_010c4a25bf4d4559ad0abf4d139145ee_0"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"Chart Filter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"TRIAL PHASE GROUP"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TRIAL PHASE GROUP"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"CORTELLIS"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"OUTSOURCING"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OUTSOURCING"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"PRODUCT NAME"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PRODUCT NAME"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"CORTELLIS"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"IDENTIFIERS"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IDENTIFIERS"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"CORTELLIS"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"PROTOCOL ID"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PROTOCOL ID"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"THERAPEUTIC AREA"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"THERAPEUTIC AREA"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"DISEASE AREA (KMR)"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DISEASE AREA (KMR)"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"PRIMARY INDICATION (JRD)"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PRIMARY INDICATION (JRD)"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"TRIAL PHASE"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TRIAL PHASE"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"CORTELLIS"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"PRODUCT TYPE"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PRODUCT TYPE"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"CORTELLIS"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"NUMBER OF SUBJECTS"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NUMBER OF SUBJECTS"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"CORTELLIS"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"NUMBER OF SITES"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NUMBER OF SITES"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"NUMBER OF COUNTRIES"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NUMBER OF COUNTRIES"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"FIRST PATIENT IN"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FIRST PATIENT IN"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"CORTELLIS"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"LAST PATIENT OUT"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LAST PATIENT OUT"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"CORTELLIS"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"PROTOCOL ISSUED"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PROTOCOL ISSUED"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"STUDY STAGE"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STUDY STAGE"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"default_value"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"Conduct"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-single"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="p">,</span><span class="w">
+                                </span><span class="s2">"CORTELLIS"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"PROJECT TYPE"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PROJECT TYPE"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"PROJECT NAME"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PROJECT NAME"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"STRATEGIC PRIORITY"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STRATEGIC PRIORITY"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"INDICATION (KMR)"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INDICATION (KMR)"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"JRD"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"SPONSOR ONLY"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SPONSOR ONLY"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"CORTELLIS"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"COLLABORATOR ONLY"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"COLLABORATOR ONLY"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"CORTELLIS"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"DRUG PIPELINE TARGET-BASED ACTIONS"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRUG PIPELINE TARGET-BASED ACTIONS"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"CORTELLIS"</span><span class="w">
+                            </span><span class="p">]</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"DRUG PIPELINE TECHNOLOGIES"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRUG PIPELINE TECHNOLOGIES"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"CORTELLIS"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"ACTIVE CONTROLS"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ACTIVE CONTROLS"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"CORTELLIS"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"INDICATION"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INDICATION"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dropdown-multi"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"dataset"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                                </span><span class="s2">"CORTELLIS"</span><span class="w">
+                            </span><span class="p">],</span><span class="w">
+                            </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+                        </span><span class="p">}</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<!--<aside class="notice">
 You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+</aside>-->
 <h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
 
 <span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
@@ -412,9 +736,9 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
+<h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<h3 id='query-parameters-2'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -466,7 +790,7 @@ Remember — a happy kitten is an authenticated kitten!
 <p>This endpoint retrieves a specific kitten.</p>
 
 <aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
+<h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
@@ -505,7 +829,7 @@ Remember — a happy kitten is an authenticated kitten!
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
+<h3 id='http-request-4'>HTTP Request</h3>
 <p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
@@ -581,10 +905,7 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="JSON">JSON</a>
           </div>
       </div>
     </div>
