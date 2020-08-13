@@ -20,524 +20,292 @@ code_clipboard: true
 ---
 
 # Introduction
-
-This documentation is the reference for JNJRnD Phase 1B **APIs and IO Structures**
-
-The following are the modules
-
-1. Cost Calculator
-2. Save Simulation
-3. Edit Monte-Carlo
+Sample EQL for Cost Calculator
 
 
 
 # Cost Calculator
-## NLP API Output changes
+## Q1 - how much would phase 2 hiv cost
 
-The following is the sample question for *cost calculator*
-
-`How much would phase 2 diabetes cost?`
-
-* The "type" will be "cost_calculator"
-
-`"action": {`<br/>
-`    "type": "cost_calculator"`<br/>
-`}`<br/>
-
-* New field "OUTSOURCING" added into "Chart Filter". And it is only for JRD dataset
-
-`"OUTSOURCING": {`<br/>
-`    "label": "OUTSOURCING",`<br/>
-`    "selection": "dropdown-multi",`<br/>
-`    "dataset": [`<br/>
-`        "JRD"`<br/>
-`    ],`<br/>
-`    "visible": true`<br/>
-`}`<br/>
-
-### HTTP Request
-
-`GET http://104.199.249.254:5064`
-
-### Query Parameters
-
-Parameter | Value | Description
---------- | ------- | -----------
-query | how much would phase 2 diabetes cost | The question which has been asked by the user
-user | jnjrd | The NLP domain
-user_id | varsha@lymbyc.com | The user's email id of Lumi Application
-
-> API Request
-
-```shell
-curl "http://104.199.249.254:5064/?\
-query=how+long+would+a+phase+2+diabetes+study+take\
-&user=jnjrd&user_id=varsha@lymbyc.com"
-```
-
-
-> API Response
-
+> API input
 
 ```json
 {
-    "status_code": "200",
-    "status_txt": "MQL Generation Success",
-    "data": [
-        {
-            "subdomain": "jnj_research",
-            "sub-domain description": "",
-            "rank": 1,
-            "mql": [
-                {
-                    "dimension": {
-                        "diabetes": {
-                            "DISEASE AREA (KMR)": {
-                                "label": "DISEASE AREA (KMR)",
-                                "order": "desc",
-                                "narrow_down_candidate": "true",
-                                "selection": "single",
-                                "values": [
-                                    "DIABETES MELLITUS"
-                                ]
-                            }
-                        },
-                        "phase 2": {
-                            "TRIAL PHASE": {
-                                "label": "TRIAL PHASE",
-                                "order": "desc"
-                            },
-                            "TRIAL PHASE GROUP": {
-                                "label": "TRIAL PHASE GROUP",
-                                "order": "desc"
-                            }
-                        }
-                    },
-                    "filter": {
-                        "and": {
-                            "eq": {
-                                "phase 2": [
-                                    "II"
-                                ],
-                                "diabetes": [
-                                    "DIABETES MELLITUS"
-                                ]
-                            }
-                        }
-                    },
-                    "action": {
-                        "type": "cost_calculator"
-                    },
-                    "query_type": "aggregation",
-                    "db_type": "activity",
-                    "type": "transaction",
-                    "db_name": "jrd_activity_p1b_v1",
-                    "weight": 0.7583333333333333,
-                    "id": "leni_jnjrd_010c4a25bf4d4559ad0abf4d139145ee_0",
-                    "Chart Filter": {
-                        "TRIAL PHASE GROUP": {
-                            "label": "TRIAL PHASE GROUP",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "JRD",
-                                "CORTELLIS"
-                            ],
-                            "visible": true
-                        },
-                        "OUTSOURCING": {
-                            "label": "OUTSOURCING",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "JRD"
-                            ],
-                            "visible": true
-                        },
-                        "PRODUCT NAME": {
-                            "label": "PRODUCT NAME",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "JRD",
-                                "CORTELLIS"
-                            ],
-                            "visible": true
-                        },
-                        "IDENTIFIERS": {
-                            "label": "IDENTIFIERS",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "CORTELLIS"
-                            ],
-                            "visible": true
-                        },
-                        "PROTOCOL ID": {
-                            "label": "PROTOCOL ID",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "JRD"
-                            ],
-                            "visible": true
-                        },
-                        "THERAPEUTIC AREA": {
-                            "label": "THERAPEUTIC AREA",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "JRD"
-                            ],
-                            "visible": true
-                        },
-                        "DISEASE AREA (KMR)": {
-                            "label": "DISEASE AREA (KMR)",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "JRD"
-                            ],
-                            "visible": true
-                        },
-                        "PRIMARY INDICATION (JRD)": {
-                            "label": "PRIMARY INDICATION (JRD)",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "JRD"
-                            ],
-                            "visible": true
-                        },
-                        "TRIAL PHASE": {
-                            "label": "TRIAL PHASE",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "JRD",
-                                "CORTELLIS"
-                            ],
-                            "visible": true
-                        },
-                        "PRODUCT TYPE": {
-                            "label": "PRODUCT TYPE",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "JRD",
-                                "CORTELLIS"
-                            ],
-                            "visible": true
-                        },
-                        "NUMBER OF SUBJECTS": {
-                            "label": "NUMBER OF SUBJECTS",
-                            "dataset": [
-                                "JRD",
-                                "CORTELLIS"
-                            ],
-                            "visible": true
-                        },
-                        "NUMBER OF SITES": {
-                            "label": "NUMBER OF SITES",
-                            "dataset": [
-                                "JRD"
-                            ],
-                            "visible": true
-                        },
-                        "NUMBER OF COUNTRIES": {
-                            "label": "NUMBER OF COUNTRIES",
-                            "dataset": [
-                                "JRD"
-                            ],
-                            "visible": true
-                        },
-                        "FIRST PATIENT IN": {
-                            "label": "FIRST PATIENT IN",
-                            "dataset": [
-                                "JRD",
-                                "CORTELLIS"
-                            ],
-                            "visible": true
-                        },
-                        "LAST PATIENT OUT": {
-                            "label": "LAST PATIENT OUT",
-                            "dataset": [
-                                "JRD",
-                                "CORTELLIS"
-                            ],
-                            "visible": true
-                        },
-                        "PROTOCOL ISSUED": {
-                            "label": "PROTOCOL ISSUED",
-                            "dataset": [
-                                "JRD"
-                            ],
-                            "visible": true
-                        },
-                        "STUDY STAGE": {
-                            "label": "STUDY STAGE",
-                            "default_value": [
-                                "Conduct"
-                            ],
-                            "selection": "dropdown-single",
-                            "dataset": [
-                                "JRD",
-                                "CORTELLIS"
-                            ],
-                            "visible": false
-                        },
-                        "PROJECT TYPE": {
-                            "label": "PROJECT TYPE",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "JRD"
-                            ],
-                            "visible": true
-                        },
-                        "PROJECT NAME": {
-                            "label": "PROJECT NAME",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "JRD"
-                            ],
-                            "visible": true
-                        },
-                        "STRATEGIC PRIORITY": {
-                            "label": "STRATEGIC PRIORITY",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "JRD"
-                            ],
-                            "visible": true
-                        },
-                        "INDICATION (KMR)": {
-                            "label": "INDICATION (KMR)",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "JRD"
-                            ],
-                            "visible": true
-                        },
-                        "SPONSOR ONLY": {
-                            "label": "SPONSOR ONLY",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "CORTELLIS"
-                            ],
-                            "visible": true
-                        },
-                        "COLLABORATOR ONLY": {
-                            "label": "COLLABORATOR ONLY",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "CORTELLIS"
-                            ],
-                            "visible": true
-                        },
-                        "DRUG PIPELINE TARGET-BASED ACTIONS": {
-                            "label": "DRUG PIPELINE TARGET-BASED ACTIONS",
-                            "selection": "dropdown-multi",
-                            "visible": true,
-                            "dataset": [
-                                "CORTELLIS"
-                            ]
-                        },
-                        "DRUG PIPELINE TECHNOLOGIES": {
-                            "label": "DRUG PIPELINE TECHNOLOGIES",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "CORTELLIS"
-                            ],
-                            "visible": true
-                        },
-                        "ACTIVE CONTROLS": {
-                            "label": "ACTIVE CONTROLS",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "CORTELLIS"
-                            ],
-                            "visible": true
-                        },
-                        "INDICATION": {
-                            "label": "INDICATION",
-                            "selection": "dropdown-multi",
-                            "dataset": [
-                                "CORTELLIS"
-                            ],
-                            "visible": true
-                        }
+    "data": {
+        "eql": {
+            "db_type": "activity",
+            "date": {},
+            "industry_ids": {
+                "STUDY TITLE": []
+            },
+            "query_type": "find",
+            "type": "transaction",
+            "filter": {
+                "and": {
+                    "eq": {
+                        "STUDY STAGE": ["Study"],
+                        "PRODUCT TYPE": [],
+                        "DISEASE AREA (KMR)": ["VIRAL"],
+                        "METRIC TYPE": ["Total Cost Per Patient"],
+                        "TRIAL PHASE GROUP": ["II"],
+                        "LEVEL": ["DA"]
                     }
                 }
-            ]
+            },
+            "measure": {},
+            "db_name": "jrd_activity_p1b_v1",
+            "action": {
+                "file": "calculator.R",
+                "input_file_type": "json",
+                "action_type": "cost_calculator",
+                "end_point": "\/analytics\/v1\/cost_calculator\/",
+                "variable_validation": false,
+                "api": true,
+                "type": "rcode",
+                "is_refine_monte_carlo": false
+            },
+            "id": "leni_lumi-1b_ab56bce85c3b4f7c8ccc4d1ca8d11ab2_0",
+            "visualization_type": "action",
+            "dataset": "JNJ RND",
+            "last_modified": "2020-08-10 19:03:23",
+            "dimension": {},
+            "jrd_ids": {
+                "STUDY TITLE": ["200056 - TMC278 LA - PHIIB - POC COMBO STUDY - (DONE BY GSK - LATTE2)", "64281802DNG2001: PH IIA HUMAN CHALLENGE TRIAL (N=52)", "64281802DNG2002: PH IIA HUMAN CHALLENGE TRIAL DENV3 (N=52)", "64281802DNG2003 PH IIA TREATMENT SINGAPORE TRIAL (N=150)", "VAC52150EBL2001- PHASE II EU", "VAC52150EBL2002- PHASE II AFRICA", "VAC52150EBL2003- PHASE II WALTER REED STUDY (US\/AFRICA)", "VAC52150EBL2004 - PREVAC", "VAC52150EBL2005 - AFRICAN PEDIATRIC STUDY - IMI (N=100)", "VAC52150EBL2006 - REVOLVE UK", "VAC52150EBL2007 - AFRICAN HCW FEASIBILITY STUDY", "VAC52150EBL2008 - RESOLVE SENEGAL", "VAC52150EBL2009 - UGANDA STUDY"]
+            },
+            "group": []
         }
-    ]
+    },
+    "api_key": "31d5aa982a5303c61653199ee325c16a",
+    "api_secret": "0eee0253ba1a166e732d6c5e51f1ae25"
 }
 ```
 
+## Q1 - Intermediate Filter - how much would phase 2 hiv cost
 
-<!--<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>-->
+The intermediate filter changed to Indication
 
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
+> API input
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+	"data": {
+		"eql": {
+			"db_type": "activity",
+			"date": {},
+			"industry_ids": {
+				"STUDY TITLE": []
+			},
+			"query_type": "find",
+			"type": "transaction",
+			"filter": {
+				"and": {
+					"eq": {
+						"STUDY STAGE": ["Study"],
+						"INDICATION (KMR)": ["HIV\/AIDS"],
+						"PRODUCT TYPE": [],
+						"DISEASE AREA (KMR)": ["VIRAL"],
+						"METRIC TYPE": ["FTE Cost Per Patient"],
+						"TRIAL PHASE GROUP": ["II"],
+						"LEVEL": ["IND"]
+					}
+				}
+			},
+			"measure": {},
+			"db_name": "jrd_activity_p1b_v1",
+			"action": {
+				"file": "calculator.R",
+				"input_file_type": "json",
+				"action_type": "cost_calculator",
+				"end_point": "\/analytics\/v1\/cost_calculator\/",
+				"variable_validation": false,
+				"api": true,
+				"type": "rcode",
+				"is_refine_monte_carlo": false
+			},
+			"id": "leni_lumi-1b_e0adc07879e4496599a531bc4b2015e3_0",
+			"visualization_type": "action",
+			"dataset": "JNJ RND",
+			"last_modified": "2020-08-10 19:03:23",
+			"dimension": {},
+			"jrd_ids": {
+				"STUDY TITLE": ["200056 - TMC278 LA - PHIIB - POC COMBO STUDY - (DONE BY GSK - LATTE2)"]
+			},
+			"group": []
+		}
+	},
+	"api_key": "31d5aa982a5303c61653199ee325c16a",
+	"api_secret": "0eee0253ba1a166e732d6c5e51f1ae25"
 }
 ```
 
-This endpoint retrieves a specific kitten.
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+## Q2 - How much would p2 diabetes cost
 
-### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
+> API input
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+	"data": {
+		"eql": {
+			"db_type": "activity",
+			"date": {},
+			"industry_ids": {
+				"STUDY TITLE": []
+			},
+			"query_type": "find",
+			"type": "transaction",
+			"filter": {
+				"and": {
+					"eq": {
+						"STUDY STAGE": ["Study"],
+						"PRODUCT TYPE": [],
+						"DISEASE AREA (KMR)": ["DIABETES MELLITUS"],
+						"METRIC TYPE": ["Total Cost Per Patient"],
+						"TRIAL PHASE GROUP": ["II"],
+						"LEVEL": ["DA"]
+					}
+				}
+			},
+			"measure": {},
+			"db_name": "jrd_activity_p1b_v1",
+			"action": {
+				"file": "calculator.R",
+				"input_file_type": "json",
+				"action_type": "cost_calculator",
+				"end_point": "\/analytics\/v1\/cost_calculator\/",
+				"variable_validation": false,
+				"api": true,
+				"type": "rcode",
+				"is_refine_monte_carlo": false
+			},
+			"id": "leni_lumi-1b_a500881906954c80ad13d860d9a9ec8c_0",
+			"visualization_type": "action",
+			"dataset": "JNJ RND",
+			"last_modified": "2020-08-10 19:03:23",
+			"dimension": {},
+			"jrd_ids": {
+				"STUDY TITLE": []
+			},
+			"group": []
+		}
+	},
+	"api_key": "31d5aa982a5303c61653199ee325c16a",
+	"api_secret": "0eee0253ba1a166e732d6c5e51f1ae25"
 }
 ```
 
-This endpoint deletes a specific kitten.
+## Q2 - Intermediate Filter - How much would p2 diabetes cost
 
-### HTTP Request
+The intermediate filter changed to Indication
 
-`DELETE http://example.com/kittens/<ID>`
+> API input
 
-### URL Parameters
+```json
+{
+	"data": {
+		"eql": {
+			"db_type": "activity",
+			"date": {},
+			"industry_ids": {
+				"STUDY TITLE": []
+			},
+			"query_type": "find",
+			"type": "transaction",
+			"filter": {
+				"and": {
+					"eq": {
+						"STUDY STAGE": ["Study"],
+						"INDICATION (KMR)": ["DIABETES - TYPE I"],
+						"PRODUCT TYPE": [],
+						"DISEASE AREA (KMR)": ["DIABETES MELLITUS"],
+						"METRIC TYPE": ["Total Cost Per Patient"],
+						"TRIAL PHASE GROUP": ["II"],
+						"LEVEL": ["IND"]
+					}
+				}
+			},
+			"measure": {},
+			"db_name": "jrd_activity_p1b_v1",
+			"action": {
+				"file": "calculator.R",
+				"input_file_type": "json",
+				"action_type": "cost_calculator",
+				"end_point": "\/analytics\/v1\/cost_calculator\/",
+				"variable_validation": false,
+				"api": true,
+				"type": "rcode",
+				"is_refine_monte_carlo": false
+			},
+			"id": "leni_lumi-1b_23020ec270934756a61e224601dbf900_0",
+			"visualization_type": "action",
+			"dataset": "JNJ RND",
+			"last_modified": "2020-08-10 19:03:23",
+			"dimension": {},
+			"jrd_ids": {
+				"STUDY TITLE": []
+			},
+			"group": []
+		}
+	},
+	"api_key": "31d5aa982a5303c61653199ee325c16a",
+	"api_secret": "0eee0253ba1a166e732d6c5e51f1ae25"
+}
+```
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
 
+## Q3 - How much would p2 prostate cancer cost
+
+
+> API input
+
+```json
+{
+	"data": {
+		"eql": {
+			"db_type": "activity",
+			"date": {},
+			"industry_ids": {
+				"STUDY TITLE": []
+			},
+			"query_type": "find",
+			"type": "transaction",
+			"filter": {
+				"and": {
+					"eq": {
+						"STUDY STAGE": ["Study"],
+						"PRODUCT TYPE": [],
+						"DISEASE AREA (KMR)": ["MALE REPRODUCTIVE CANCER"],
+						"METRIC TYPE": ["Total Cost Per Patient"],
+						"TRIAL PHASE GROUP": ["II"],
+						"LEVEL": ["DA"]
+					}
+				}
+			},
+			"measure": {},
+			"db_name": "jrd_activity_p1b_v1",
+			"action": {
+				"file": "calculator.R",
+				"input_file_type": "json",
+				"action_type": "cost_calculator",
+				"end_point": "\/analytics\/v1\/cost_calculator\/",
+				"variable_validation": false,
+				"api": true,
+				"type": "rcode",
+				"is_refine_monte_carlo": false
+			},
+			"id": "leni_lumi-1b_eedd4351536440499829406c3c2741f6_0",
+			"visualization_type": "action",
+			"dataset": "JNJ RND",
+			"last_modified": "2020-08-10 19:03:23",
+			"dimension": {},
+			"jrd_ids": {
+				"STUDY TITLE": ["212082PCR2007 PH2KOREA\/TAIWAN REG N=82PTS", "64091742PCR2001 AN OPEN LABEL PHASE 2 EFFICACY AND SAFETY STUDY OF NIRAPARIB IN CASTRATE MEN WITH PROGRESSIVE ADVANCED PROSTATE CANCER AND DNA-REPAIR ANOMALIES", "64091742PCR2002 A PH1B\/2 STUDY OF NIRAPARIB COMBINATION THERAPIES FOR THE TREATMENT OF MEN WITH PROSTATE CANCER", "ARN-509-001 PHASE IIA", "ARN-509-002 PHASE IIA"]
+			},
+			"group": []
+		}
+	},
+	"api_key": "31d5aa982a5303c61653199ee325c16a",
+	"api_secret": "0eee0253ba1a166e732d6c5e51f1ae25"
+}
+```
